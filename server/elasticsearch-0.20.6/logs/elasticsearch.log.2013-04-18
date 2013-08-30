@@ -1,0 +1,56 @@
+[2013-04-18 08:19:19,302][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: initializing ...
+[2013-04-18 08:19:19,309][INFO ][plugins                  ] [Joe Fixit] loaded [], sites [bigdesk]
+[2013-04-18 08:19:21,243][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: initialized
+[2013-04-18 08:19:21,243][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: starting ...
+[2013-04-18 08:19:21,345][INFO ][transport                ] [Joe Fixit] bound_address {inet[/0.0.0.0:9300]}, publish_address {inet[/192.168.1.115:9300]}
+[2013-04-18 08:19:24,379][INFO ][cluster.service          ] [Joe Fixit] new_master [Joe Fixit][dErfT3JCRTidIVSNoI9Usg][inet[/192.168.1.115:9300]], reason: zen-disco-join (elected_as_master)
+[2013-04-18 08:19:24,400][INFO ][discovery                ] [Joe Fixit] elasticsearch/dErfT3JCRTidIVSNoI9Usg
+[2013-04-18 08:19:24,413][INFO ][http                     ] [Joe Fixit] bound_address {inet[/0.0.0.0:9200]}, publish_address {inet[/192.168.1.115:9200]}
+[2013-04-18 08:19:24,413][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: started
+[2013-04-18 08:19:24,452][INFO ][gateway                  ] [Joe Fixit] recovered [0] indices into cluster_state
+[2013-04-18 08:19:26,339][INFO ][cluster.metadata         ] [Joe Fixit] [enonic] creating index, cause [auto(index api)], shards [5]/[1], mappings []
+[2013-04-18 08:19:26,725][INFO ][cluster.metadata         ] [Joe Fixit] [enonic] update_mapping [employee] (dynamic)
+[2013-04-18 08:20:19,173][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: stopping ...
+[2013-04-18 08:20:19,215][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: stopped
+[2013-04-18 08:20:19,215][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: closing ...
+[2013-04-18 08:20:19,221][INFO ][node                     ] [Joe Fixit] {0.20.6}[6828]: closed
+[2013-04-18 08:20:25,425][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: initializing ...
+[2013-04-18 08:20:25,432][INFO ][plugins                  ] [Foster, Bill] loaded [], sites [bigdesk]
+[2013-04-18 08:20:27,419][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: initialized
+[2013-04-18 08:20:27,420][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: starting ...
+[2013-04-18 08:20:27,512][INFO ][transport                ] [Foster, Bill] bound_address {inet[/0.0.0.0:9300]}, publish_address {inet[/192.168.1.115:9300]}
+[2013-04-18 08:20:30,540][INFO ][cluster.service          ] [Foster, Bill] new_master [Foster, Bill][Ijo_A5u4RN6oimWn8JhouA][inet[/192.168.1.115:9300]], reason: zen-disco-join (elected_as_master)
+[2013-04-18 08:20:30,563][INFO ][discovery                ] [Foster, Bill] elasticsearch/Ijo_A5u4RN6oimWn8JhouA
+[2013-04-18 08:20:30,576][INFO ][http                     ] [Foster, Bill] bound_address {inet[/0.0.0.0:9200]}, publish_address {inet[/192.168.1.115:9200]}
+[2013-04-18 08:20:30,576][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: started
+[2013-04-18 08:20:31,016][INFO ][gateway                  ] [Foster, Bill] recovered [1] indices into cluster_state
+[2013-04-18 08:21:11,420][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: stopping ...
+[2013-04-18 08:21:11,473][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: stopped
+[2013-04-18 08:21:11,474][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: closing ...
+[2013-04-18 08:21:11,483][INFO ][node                     ] [Foster, Bill] {0.20.6}[6846]: closed
+[2013-04-18 09:10:25,088][INFO ][node                     ] [Supremor] {0.20.6}[7024]: initializing ...
+[2013-04-18 09:10:25,095][INFO ][plugins                  ] [Supremor] loaded [], sites [bigdesk]
+[2013-04-18 09:10:26,978][INFO ][node                     ] [Supremor] {0.20.6}[7024]: initialized
+[2013-04-18 09:10:26,979][INFO ][node                     ] [Supremor] {0.20.6}[7024]: starting ...
+[2013-04-18 09:10:27,071][INFO ][transport                ] [Supremor] bound_address {inet[/0.0.0.0:9300]}, publish_address {inet[/192.168.1.115:9300]}
+[2013-04-18 09:10:30,105][INFO ][cluster.service          ] [Supremor] new_master [Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]], reason: zen-disco-join (elected_as_master)
+[2013-04-18 09:10:30,126][INFO ][discovery                ] [Supremor] elasticsearch/EhS3CjUeTCG2vdVc31FVhQ
+[2013-04-18 09:10:30,139][INFO ][http                     ] [Supremor] bound_address {inet[/0.0.0.0:9200]}, publish_address {inet[/192.168.1.115:9200]}
+[2013-04-18 09:10:30,139][INFO ][node                     ] [Supremor] {0.20.6}[7024]: started
+[2013-04-18 09:10:30,179][INFO ][gateway                  ] [Supremor] recovered [0] indices into cluster_state
+[2013-04-18 09:11:06,658][INFO ][node                     ] [Xemu] {0.20.6}[7031]: initializing ...
+[2013-04-18 09:11:06,665][INFO ][plugins                  ] [Xemu] loaded [], sites [bigdesk]
+[2013-04-18 09:11:08,554][INFO ][node                     ] [Xemu] {0.20.6}[7031]: initialized
+[2013-04-18 09:11:08,555][INFO ][node                     ] [Xemu] {0.20.6}[7031]: starting ...
+[2013-04-18 09:11:08,648][INFO ][transport                ] [Xemu] bound_address {inet[/0.0.0.0:9301]}, publish_address {inet[/192.168.1.115:9301]}
+[2013-04-18 09:11:11,696][INFO ][cluster.service          ] [Supremor] added {[Xemu][MF-RoI67SfmIaUR2s8mMCg][inet[/192.168.1.115:9301]],}, reason: zen-disco-receive(join from node[[Xemu][MF-RoI67SfmIaUR2s8mMCg][inet[/192.168.1.115:9301]]])
+[2013-04-18 09:11:11,707][INFO ][cluster.service          ] [Xemu] detected_master [Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]], added {[Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]],}, reason: zen-disco-receive(from master [[Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]]])
+[2013-04-18 09:11:11,756][INFO ][discovery                ] [Xemu] elasticsearch/MF-RoI67SfmIaUR2s8mMCg
+[2013-04-18 09:11:11,762][INFO ][http                     ] [Xemu] bound_address {inet[/0.0.0.0:9201]}, publish_address {inet[/192.168.1.115:9201]}
+[2013-04-18 09:11:11,762][INFO ][node                     ] [Xemu] {0.20.6}[7031]: started
+[2013-04-18 09:15:08,408][INFO ][cluster.metadata         ] [Supremor] [enonic] creating index, cause [auto(index api)], shards [5]/[1], mappings []
+[2013-04-18 09:15:09,033][INFO ][cluster.metadata         ] [Supremor] [enonic] update_mapping [employee] (dynamic)
+[2013-04-18 09:16:09,212][INFO ][cluster.metadata         ] [Supremor] [enonic] update_mapping [employee] (dynamic)
+[2013-04-18 09:19:43,314][INFO ][cluster.metadata         ] [Supremor] [enonic] update_mapping [employee]
+[2013-04-18 09:36:32,318][INFO ][cluster.metadata         ] [Supremor] [exp-demo] creating index, cause [api], shards [1]/[1], mappings [edna]
+[2013-04-18 09:36:34,529][INFO ][cluster.metadata         ] [Supremor] [exp-demo] update_mapping [edna] (dynamic)

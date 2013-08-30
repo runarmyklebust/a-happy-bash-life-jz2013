@@ -1,0 +1,45 @@
+[2013-04-19 07:54:58,477][WARN ][transport.netty          ] [Xemu] exception caught on transport layer [[id: 0xb3ad2872, /192.168.1.115:54173 => /192.168.1.115:9300]], closing connection
+java.io.IOException: Operation timed out
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:225)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:193)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:359)
+	at org.elasticsearch.common.netty.channel.socket.nio.NioWorker.read(NioWorker.java:64)
+	at org.elasticsearch.common.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:107)
+	at org.elasticsearch.common.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:312)
+	at org.elasticsearch.common.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:88)
+	at org.elasticsearch.common.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+	at org.elasticsearch.common.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.elasticsearch.common.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:722)
+[2013-04-19 07:54:58,477][WARN ][transport.netty          ] [Supremor] exception caught on transport layer [[id: 0x8960dead, /192.168.1.115:54164 => /192.168.1.115:9301]], closing connection
+java.io.IOException: Operation timed out
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:225)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:193)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:359)
+	at org.elasticsearch.common.netty.channel.socket.nio.NioWorker.read(NioWorker.java:64)
+	at org.elasticsearch.common.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:107)
+	at org.elasticsearch.common.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:312)
+	at org.elasticsearch.common.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:88)
+	at org.elasticsearch.common.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+	at org.elasticsearch.common.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.elasticsearch.common.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:722)
+[2013-04-19 07:55:28,525][INFO ][cluster.service          ] [Supremor] removed {[Xemu][MF-RoI67SfmIaUR2s8mMCg][inet[/192.168.1.115:9301]],}, reason: zen-disco-node_failed([Xemu][MF-RoI67SfmIaUR2s8mMCg][inet[/192.168.1.115:9301]]), reason transport disconnected (with verified connect)
+[2013-04-19 07:55:28,542][INFO ][discovery.zen            ] [Xemu] master_left [[Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]]], reason [transport disconnected (with verified connect)]
+[2013-04-19 07:55:28,544][INFO ][cluster.service          ] [Xemu] master {new [Xemu][MF-RoI67SfmIaUR2s8mMCg][inet[/192.168.1.115:9301]], previous [Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]]}, removed {[Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]],}, reason: zen-disco-master_failed ([Supremor][EhS3CjUeTCG2vdVc31FVhQ][inet[/192.168.1.115:9300]])
+[2013-04-19 10:53:04,994][INFO ][node                     ] [Supremor] {0.20.6}[7024]: stopping ...
+[2013-04-19 10:53:05,030][INFO ][node                     ] [Supremor] {0.20.6}[7024]: stopped
+[2013-04-19 10:53:05,030][INFO ][node                     ] [Supremor] {0.20.6}[7024]: closing ...
+[2013-04-19 10:53:05,034][INFO ][node                     ] [Supremor] {0.20.6}[7024]: closed
+[2013-04-19 10:53:05,096][INFO ][node                     ] [Xemu] {0.20.6}[7031]: stopping ...
+[2013-04-19 10:53:05,136][INFO ][node                     ] [Xemu] {0.20.6}[7031]: stopped
+[2013-04-19 10:53:05,136][INFO ][node                     ] [Xemu] {0.20.6}[7031]: closing ...
+[2013-04-19 10:53:05,140][INFO ][node                     ] [Xemu] {0.20.6}[7031]: closed
