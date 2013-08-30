@@ -1,1 +1,1 @@
-Slides for jz2013 presentation
+Slides for jz2014 presentation, created with reveal.js
