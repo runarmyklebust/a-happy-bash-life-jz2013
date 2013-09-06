@@ -54,9 +54,14 @@
             <p>Senior developer@Enonic</p>
         </section>
 
-
         <section>
             <h3>.bash_profile, <em>.bashrc</em> eller tilsvarende</h3>
+        </section>
+
+        <section>
+            <h2>Min <em>.bashrc</em> ligger på github:</h2>
+            &nbsp;
+            <p>https://github.com/runarmyklebust/bashstuff</p>
         </section>
 
         <!--
@@ -185,10 +190,21 @@ up() {
         <section>
             <h3><em>git-aware</em> prompt</h3>
             <p>&nbsp;</p>
+            <h4>Binding</h4>
+            <pre>
+                <code class="bash">
+ export PROMPT_COMMAND="set_git_enabled_prompt; $PROMPT_COMMAND"
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3><em>git-aware</em> prompt</h3>
+            <p>&nbsp;</p>
             <h4>function</h4>
             <pre>
                 <code class="bash">
-function set_git_enabled_prompt () {
+ function set_git_enabled_prompt () {
 
     # Set the BRANCH variable.
     if is_git_repository ; then
@@ -203,18 +219,6 @@ function set_git_enabled_prompt () {
                 </code>
             </pre>
         </section>
-
-        <section>
-            <h3><em>git-aware</em> prompt</h3>
-            <p>&nbsp;</p>
-            <h4>Binding</h4>
-            <pre>
-                <code class="bash">
-  export PROMPT_COMMAND="set_git_enabled_prompt; $PROMPT_COMMAND"
-                </code>
-            </pre>
-        </section>
-
 
         <section>
             <h3><em>Tab-completion</em> med kontekst</h3>
@@ -234,6 +238,11 @@ _set_gitrepository-TC() {
     COMPREPLY=( $( compgen -W '$( ls $GIT_REPO)' $cur ))
 }
 
+# Function
+cg() {
+    builtin cd $GIT_REPO/$1
+}
+
 # Bind
 complete -F _set_gitrepository-TC cg
                 </code>
@@ -242,13 +251,54 @@ complete -F _set_gitrepository-TC cg
 
 
         <section>
-            <h2>Historikk slik den burde være</h2>
+            <h2>Historikk slik den <em>burde</em> være</h2>
         </section>
 
         <section>
+            <h3>Øk størrelsen på historien</h3>
+            <pre>
+                <code class="bash">
+  # Set larger history
 
+  HISTSIZE=9000
 
+  HISTFILESIZE=$HISTSIZE
+                </code>
+            </pre>
         </section>
+
+        <section>
+            <h3>Luk ut duplikater</h3>
+            <pre>
+                <code class="bash">
+ # Ignore duplicates and commands with leading spaces
+
+ HISTCONTROL=ignorespace:ignoredups
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>Append kommandoer umiddelbart</h3>
+            <pre>
+                <code class="bash">
+ _bash_history_sync() {
+
+     # Append this session to history
+     builtin history -a
+     HISTFILESIZE=$HISTSIZE
+
+ }
+
+ export PROMPT_COMMAND="_bash_history_sync; $PROMPT_COMMAND"
+                </code>
+            </pre>
+        </section>
+
+    <section>
+        <p>https://github.com/runarmyklebust/bashstuff</p>
+    </section>
+
 
 
     </div>
