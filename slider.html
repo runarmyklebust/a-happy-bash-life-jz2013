@@ -56,9 +56,7 @@
 
 
         <section>
-            <h2><em>.bashrc</em> eller tilsvarende</h2>
-            <p>&nbsp;</p>
-            <p>Mac:</br> <i>source .bashrc</i> i ~/.profile</p>
+            <h3>.bash_profile, <em>.bashrc</em> eller tilsvarende</h3>
         </section>
 
         <!--
@@ -68,7 +66,6 @@
             <p><img class="users-screenshot" src="img/cd-hell.png"></p>
         </section>
 -->
-
 
         <section>
             <h2><em>cd ..</em> bonanza</h2>
@@ -164,8 +161,6 @@ up() {
 	        </section>
 
 
-
-
         <section>
             <h2><em>git-aware</em> prompt</h2>
             <p>&nbsp;</p>
@@ -226,21 +221,37 @@ function set_git_enabled_prompt () {
         </section>
 
         <section>
-            <ul>
-                <li>Filer</li>
-                <li>Kommandoer</li>
-            </ul>
+            <h3>git-repo tab-completion</h3>
+            <pre>
+                <code class="bash">
+# Activate
+shopt -s progcomp
+
+# Define function
+_set_gitrepository-TC() {
+    local cur
+    cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $( compgen -W '$( ls $GIT_REPO)' $cur ))
+}
+
+# Bind
+complete -F _set_gitrepository-TC cg
+                </code>
+            </pre>
         </section>
 
 
         <section>
-            <h2>4. Historikk slik den burde være</h2>
-            <div>
-
-			</div>
+            <h2>Historikk slik den burde være</h2>
         </section>
 
-	</div>
+        <section>
+
+
+        </section>
+
+
+    </div>
 </div>
 
 <script src="lib/js/head.min.js"></script>
