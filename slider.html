@@ -61,42 +61,65 @@
             <p>Mac:</br> <i>source .bashrc</i> i ~/.profile</p>
         </section>
 
+        <!--
+
         <section>
-            <h2>Problem 1.</h2>
-            <p>&nbsp;</p>
             <h3><em>cd ..</em> - helvete</h3>
             <p><img class="users-screenshot" src="img/cd-hell.png"></p>
-        </section>
-
-<!--
-        <section>
-            <h2>Problem 1.</h2>
-            <p>&nbsp;</p>
-            <h3><em>cd ..</em> - helvete</h3>
-        <div>
-            <pre>
-                <code class="bash">
-../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-red">cd ..</span>
-../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT $ <span class="highlightme-red">cd ..</span>
-../git/WEM/modules/wem-webapp/target $ <span class="highlightme-red">cd ..</span>
-../git/WEM/modules/wem-webapp $ <span class="highlightme-red">cd ..</span>
-../git/WEM/modules $ <span class="highlightme-red">cd ..</span>
-../git/WEM $
-                    </code>
-                </pre>
-            </div>
         </section>
 -->
 
 
         <section>
+            <h2><em>cd ..</em> bonanza</h2>
+        <div>
+            <pre>
+                <code class="bash">
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules/wem-webapp/target $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules/wem-webapp $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM $
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+
+        <section>
             <h2><em>up</em> to the rescue</h2>
-            <p><img class="users-screenshot" src="img/up1.png"></p>
+            <!--<p><img class="users-screenshot" src="img/up1.png" width="100%"></p>-->
+            <div>
+            <pre>
+                <code class="bash">
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-green">up 5</span>
+
+../git/WEM $
+                </code>
+                </pre>
+            </div>
         </section>
 
         <section>
             <h2><em>up</em> pattern match</h2>
-            <p><img class="users-screenshot" src="img/up2.png"></p>
+            <!--<p><img class="users-screenshot" src="img/up2.png"></p>-->
+            <div>
+            <pre>
+                <code class="bash">
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-green">up tar</span>
+
+../git/WEM/modules/wem-webapp/target $ <span class="highlightme-green">up W</span>
+
+../git/WEM $
+                </code>
+                </pre>
+            </div>
 		</section>
 
         <section>
@@ -138,7 +161,7 @@ up() {
 }
                 </code>
 		    </pre>
-        </section>
+	        </section>
 
 
 
@@ -152,7 +175,7 @@ up() {
         </section>
 
         <section>
-            <p>Added, changed, ahead</p>
+            <p>Changed, ahead of remote, new</p>
             <p>&nbsp;</p>
             <p><img class="users-screenshot" src="img/git-change.png"></p>
         </section>
@@ -164,17 +187,54 @@ up() {
             <p><img class="users-screenshot" src="img/git-branch.png"></p>
         </section>
 
+        <section>
+            <h3><em>git-aware</em> prompt</h3>
+            <p>&nbsp;</p>
+            <h4>function</h4>
+            <pre>
+                <code class="bash">
+function set_git_enabled_prompt () {
+
+    # Set the BRANCH variable.
+    if is_git_repository ; then
+        set_git_branch
+    else
+        BRANCH=' '
+    fi
+
+    # Set the bash prompt variable.
+    PS1="\[\e[$((32-${?}))m\]\w\[\e[0m\]${BRANCH}\$ "
+}
+                </code>
+            </pre>
+        </section>
 
         <section>
-            <h2>3. Historikk slik den burde være</h2>
-            <div>
-
-			</div>
+            <h3><em>git-aware</em> prompt</h3>
+            <p>&nbsp;</p>
+            <h4>Binding</h4>
+            <pre>
+                <code class="bash">
+  export PROMPT_COMMAND="set_git_enabled_prompt; $PROMPT_COMMAND"
+                </code>
+            </pre>
         </section>
 
 
         <section>
-            <h2>3. Tab-completion med kontekst</h2>
+            <h3><em>Tab-completion</em> med kontekst</h3>
+        </section>
+
+        <section>
+            <ul>
+                <li>Filer</li>
+                <li>Kommandoer</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>4. Historikk slik den burde være</h2>
             <div>
 
 			</div>
