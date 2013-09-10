@@ -48,7 +48,7 @@
         <section>
             <h1>&nbsp;&nbsp;&nbsp;Et <em>lykkeligere</em> liv med bash</h1>
 			<p>&nbsp;</p>
-			<h2>4 enkle tips</h2>
+			<h2>4 tips</h2>
             <p>&nbsp;</p>
             <p>Runar Myklebust</p>
             <p>Senior developer@Enonic</p>
@@ -73,7 +73,7 @@
 -->
 
         <section>
-            <h2><em>cd ..</em> bonanza</h2>
+            <h2><em>cd ..</em></h2>
         <div>
             <pre>
                 <code class="bash">
@@ -130,13 +130,10 @@
                 <code class="bash">
 up() {
     LIMIT=$1
-
     if [ -z "$LIMIT" ]; then
         LIMIT=1
     fi
-
     SEARCHPATH=$PWD
-
     # Non-numeric input, do pattern match
     if ! [[ "$LIMIT" =~ ^[0-9]+$ ]] ; then
         if ! [[ "$SEARCHPATH" =~ ^.*$LIMIT.*$ ]] ; then
@@ -153,16 +150,13 @@ up() {
             done
         fi
     else
-        # go LIMIT dirs up
-        for ((i=1; i <= LIMIT; i++))
-            do
-                SEARCHPATH=$SEARCHPATH/..
-            done
-        cd $SEARCHPATH
-    fi
+  ...
 }
                 </code>
 		    </pre>
+
+            <p>Se github...</p>
+
 	        </section>
 
 
@@ -174,6 +168,7 @@ up() {
             <h3>Hvilken branch?</h3>
         </section>
 
+        <!--
         <section>
             <p>Changed, ahead of remote, new</p>
             <p>&nbsp;</p>
@@ -186,6 +181,7 @@ up() {
             <p>&nbsp;</p>
             <p><img class="users-screenshot" src="img/git-branch.png"></p>
         </section>
+        -->
 
         <section>
             <h3><em>git-aware</em> prompt</h3>
@@ -225,37 +221,66 @@ up() {
         </section>
 
         <section>
-            <h3>git-repo tab-completion</h3>
+            <h3>cg()</h3>
             <pre>
                 <code class="bash">
 # Activate
 shopt -s progcomp
 
-# Define function
+# Define tab completion items
 _set_gitrepository-TC() {
     local cur
     cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=( $( compgen -W '$( ls $GIT_REPO)' $cur ))
 }
 
-# Function
+# cd-function
 cg() {
     builtin cd $GIT_REPO/$1
 }
 
-# Bind
+# Bind command to TC-function
 complete -F _set_gitrepository-TC cg
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>branch()</h3>
+            <pre>
+                <code class="bash">
+# Function to checkout branches, uses _set_listbranches-TC
+branch() {
+    git checkout $1
+}
+
+# Get branches and remove * to not fuck up TabCompletion
+getBranches() {
+    BRANCHES=$(git branch | sed 's/*//')
+    echo $BRANCHES
+}
+
+# Define tab completion items
+_set_listbranches-TC() {
+    local cur
+    cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $( compgen -W '$( getBranches)' $cur ))
+}
+
+# Bind branch to TC-function
+complete -F _set_listbranches-TC branch
+
                 </code>
             </pre>
         </section>
 
 
         <section>
-            <h2>Historikk slik den <em>burde</em> være</h2>
+            <h2><em>History</em> slik den burde være</h2>
         </section>
 
         <section>
-            <h3>Øk størrelsen på historien</h3>
+            <h3><em>History</em> - Større history-fil</h3>
             <pre>
                 <code class="bash">
   # Set larger history
@@ -268,7 +293,7 @@ complete -F _set_gitrepository-TC cg
         </section>
 
         <section>
-            <h3>Luk ut duplikater</h3>
+            <h3><em>History</em> - Luk ut duplikater</h3>
             <pre>
                 <code class="bash">
  # Ignore duplicates and commands with leading spaces
@@ -279,7 +304,7 @@ complete -F _set_gitrepository-TC cg
         </section>
 
         <section>
-            <h3>Append kommandoer umiddelbart</h3>
+            <h3><em>History</em> - Append kommandoer <br/>umiddelbart</h3>
             <pre>
                 <code class="bash">
  _bash_history_sync() {
