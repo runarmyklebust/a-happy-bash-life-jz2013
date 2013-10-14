@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Lykkeligere liv med bash</title>
+
+    <meta name="description" content="Lykkeligere liv med bash, 4 enkle tips">
+    <meta name="author" content="Runar Myklebust">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) +
+                       '.css" type="text/css" media="print">');
+    </script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/highcharts/js/highcharts.js"></script>
+    <!--<script src="js/dataFetcher.js"></script>
+    <script src="js/main.js"/>
+         -->
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <section>
+            <h1>&nbsp;&nbsp;&nbsp;Et <em>lykkeligere</em> liv med bash</h1>
+			<p>&nbsp;</p>
+			<h2>4 tips</h2>
+            <p>&nbsp;</p>
+            <p>Runar Myklebust</p>
+            <p>Senior developer@Enonic</p>
+        </section>
+
+        <section>
+            <h2>Bash-shell konfigurasjon</h2>
+            <p>.bash_profile, <em>.bashrc</em> etc</p>
+        </section>
+
+        <section>
+            <h2>Alt i denne sesjonen:</h2>
+            &nbsp;
+            <p>https://github.com/<em>runarmyklebust</em>/bashstuff/.bashrc</p>
+        </section>
+
+        <!--
+
+        <section>
+            <h3><em>cd ..</em> - helvete</h3>
+            <p><img class="users-screenshot" src="img/cd-hell.png"></p>
+        </section>
+-->
+
+        <section>
+            <h2><em>cd ..</em> bonanza</h2>
+        <div>
+            <pre>
+                <code class="bash">
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules/wem-webapp/target $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules/wem-webapp $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM/modules $ <span class="highlightme-green">cd ..</span>
+
+../git/WEM $
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+
+        <section>
+            <h2><em>up</em> to the rescue</h2>
+            <!--<p><img class="users-screenshot" src="img/up1.png" width="100%"></p>-->
+            <div>
+            <pre>
+                <code class="bash">
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-green">up 5</span>
+
+../git/WEM $
+                </code>
+                </pre>
+            </div>
+        </section>
+
+        <section>
+            <h2><em>up</em> pattern match</h2>
+            <!--<p><img class="users-screenshot" src="img/up2.png"></p>-->
+            <div>
+            <pre>
+                <code class="bash">
+../git/WEM/modules/wem-webapp/target/wem-webapp-5.0.0-SNAPSHOT/WEB-INF $ <span class="highlightme-green">up tar</span>
+
+../git/WEM/modules/wem-webapp/target $ <span class="highlightme-green">up W</span>
+
+../git/WEM $
+                </code>
+                </pre>
+            </div>
+		</section>
+
+        <section>
+            <h2><em>up</em> function</h2>
+            <pre>
+                <code class="bash">
+up() {
+    LIMIT=$1
+    if [ -z "$LIMIT" ]; then
+        LIMIT=1
+    fi
+    SEARCHPATH=$PWD
+    # Non-numeric input, do pattern match
+    if ! [[ "$LIMIT" =~ ^[0-9]+$ ]] ; then
+        if ! [[ "$SEARCHPATH" =~ ^.*$LIMIT.*$ ]] ; then
+            echo "expression not found in path"
+        else
+            while [ true ]; do
+                SEARCHPATH=$SEARCHPATH/..
+                cd $SEARCHPATH
+                if [[ ${PWD##*/} =~ ^.*$LIMIT.*$ ]]; then
+                    break;
+                elif [[ -z ${PWD##*/} ]]; then
+                    break;
+                fi
+            done
+        fi
+    else
+  ...
+}
+                </code>
+		    </pre>
+
+            <p>Se github...</p>
+
+	        </section>
+
+
+        <section>
+            <h2><em>git-aware</em> prompt</h2>
+            <p>&nbsp;</p>
+            <h3>Er jeg i et git repository?</h3>
+            <h3>Har jeg pushet endringene mine?</h3>
+            <h3>Hvilken branch?</h3>
+        </section>
+
+        <!--
+        <section>
+            <p>Changed, ahead of remote, new</p>
+            <p>&nbsp;</p>
+            <p><img class="users-screenshot" src="img/git-change.png"></p>
+        </section>
+
+
+        <section>
+            <p>current branch</p>
+            <p>&nbsp;</p>
+            <p><img class="users-screenshot" src="img/git-branch.png"></p>
+        </section>
+        -->
+
+        <section>
+            <h3><em>git-aware</em> prompt</h3>
+            <p>&nbsp;</p>
+            <h4>Binding</h4>
+            <pre>
+                <code class="bash">
+ export PROMPT_COMMAND="set_git_enabled_prompt; $PROMPT_COMMAND"
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3><em>git-aware</em> prompt</h3>
+            <p>&nbsp;</p>
+            <h4>function</h4>
+            <pre>
+                <code class="bash">
+ function set_git_enabled_prompt () {
+
+    # Set the BRANCH variable.
+    if is_git_repository ; then
+        set_git_branch
+    else
+        BRANCH=' '
+    fi
+
+    # Set the bash prompt variable.
+    PS1="\[\e[$((32-${?}))m\]\w\[\e[0m\]${BRANCH}\$ "
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3><em>Tab-completion</em> med kontekst</h3>
+        </section>
+
+        <section>
+            <h3>cg()</h3>
+            <pre>
+                <code class="bash">
+# Activate
+shopt -s progcomp
+
+# Define tab completion items
+_set_gitrepository-TC() {
+    local cur
+    cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $( compgen -W '$( ls $GIT_REPO)' $cur ))
+}
+
+# cd-function
+cg() {
+    builtin cd $GIT_REPO/$1
+}
+
+# Bind command to TC-function
+complete -F _set_gitrepository-TC cg
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>branch()</h3>
+            <pre>
+                <code class="bash">
+# Function to checkout branches, uses _set_listbranches-TC
+branch() {
+    git checkout $1
+}
+
+# Get branches and remove * to not fuck up TabCompletion
+getBranches() {
+    BRANCHES=$(git branch | sed 's/*//')
+    echo $BRANCHES
+}
+
+# Define tab completion items
+_set_listbranches-TC() {
+    local cur
+    cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $( compgen -W '$( getBranches)' $cur ))
+}
+
+# Bind branch to TC-function
+complete -F _set_listbranches-TC branch
+
+                </code>
+            </pre>
+        </section>
+
+
+        <section>
+            <h2><em>History</em> slik den burde være</h2>
+        </section>
+
+        <section>
+            <h3><em>History</em> - Større history-fil</h3>
+            <pre>
+                <code class="bash">
+  # Set larger history
+
+  HISTSIZE=9000
+
+  HISTFILESIZE=$HISTSIZE
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3><em>History</em> - Luk ut duplikater</h3>
+            <pre>
+                <code class="bash">
+ # Ignore duplicates and commands with leading spaces
+
+ HISTCONTROL=ignorespace:ignoredups
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3><em>History</em> - Append kommandoer <br/>umiddelbart</h3>
+            <pre>
+                <code class="bash">
+ _bash_history_sync() {
+
+     # Append this session to history
+     builtin history -a
+     HISTFILESIZE=$HISTSIZE
+
+ }
+
+ export PROMPT_COMMAND="_bash_history_sync; $PROMPT_COMMAND"
+                </code>
+            </pre>
+        </section>
+
+    <section>
+        <p>https://github.com/runarmyklebust/bashstuff</p>
+    </section>
+
+
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/showdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+
+// Prerequisits:
+
+// Chrome: Presentasjon
+
+// Firefox:
+    - Tomt vindu, slett forms-historikk
+
+// Shell 4 stk:
+    - /Users/rmy/Documents/Experience_18_4_2013/server/elasticsearch-0.20.6 : Kjøre elasticsearch ( 2 stk! )
+    - /Users/rmy/Documents/Experience_18_4_2013/scripts : Kjøre script mot ES
+    - /Users/rmy/Dev/Workspace/Java/Enonic/git/edna-elasticsearch-extractor: vise inndytting av data inn i ES
+
+// Elasticsearch:
+    - Stopp server
+    - Slett indexer
+
+
+*** HVA ER ELASTICSEARCH
+
+Først av alt; Hva er elasticsearch?
+
+Elasticsearch er en søkeplatform, eller søkemotor eller hva man velger å kalle det.
+Den er dokument-orientert
+og den er skjemafri - Dvs man kan i utgangspunktet dytte ned hva som helst av data uten å spesifisere noe skjema
+- Men, man skal ikke bli veldig avansert før man til en viss grad blir nødt til å fortelle Elasticsearch hvordan den skal håndtere dataene dine
+Kommer litt tilbake til det underveis.
+
+Den er bygget for å være distribuert, og den er det ut av boksen.
+Alt clusterspesifikt vil håndteres av ES-magi - den vil fordele data og spørringer utover nodene og håndtere replicas etc.
+- men man har også mulighet til å fintune ned til minste detalj hvis det er nødvendig.
+
+Discovery-mekanismene - altså hvordan nodene finner hverandre og velger hvem som er sjef - er også veldig bra.
+Når vi lagde 4.7 forsøkte vi først å få Elasticsearch til å bruke JGroups sin discovery, men fant ut at det letteste egentlig var
+å bruke Elasticsearch sin Zen discovery-mekanisme for hele CMS'et.
+
+Den tilbyr et REST API via JSON over HTTP, og også - viktig for oss et JAVA-Api, kommer litt innom API'et underveis.
+
+*** NOEN SOM BRUKER DET?
+
+
+Så; spørmålet - det er en forholdsvis ny teknologi, nyeste versjon nå 0.90 RC2, vi slapp 4.7 med versjon 0.19;
+Er det noen som bruker det?
+Er det til å stole på?
+Har tatt med noen kjente eksempler.
+
+StumbleUpon er det sikkert en del som bruker. Den anbefaler nettsider utifra din personaliserte profil.
+Foursquare er en lokasjonsbasert sosial app med 50 millioner lokasjoner
+Soundcloud er en musikkdistribusjonsplattform.
+Og så selvsagt GitHub, med sinnsyke datamengder.
+Har dere testet å søke på kode på github? Vis søk på SearchSourceFactory, og deretter på 'a'
+
+*** ES VS SOLR
+
+Solr er jo en veldig tilsvarende teknologi, så mange lurer på hva som egentlig er forskjellen på disse.
+Har aldri brukt Solr før, så jeg har brukt litt tid på å nøste opp i hva som egentlig er forskjellene.
+Etter mye leting så ender jeg alltid opp med å finne at alle argumenter for den ene siden motsies av den andre
+siden med at man gjøre det samme der. Men inntrykket jeg sitter igjen med er at som regel er ting mer rett frem
+i Elasticsearch, uten at jeg kan underbygge det med noen konkrete harde fakta. Så, elasticsearch lever foreløpig opp til
+mottoet "search made easy".
+
+
+***
+
+Skal bare kjapt vise litt om API'et.
+
+Rest-API'et er tilgjengelig via HTTP og snakker JSON. Her er et eksempel på indeksering av en tweet. Indexen heter "twitter" og index-typen er tweet.
+Index er på en måte sammenlignbart med et database-skjema, mens index-type kan sees på som en slags tabell.
+Og her er en enkel get som henter en tweet ved hjelp av id.
+
+Java API'et har de samme mulighetene som REST-api'et. Enkelt og greit. Bruker buildere - litt knotete å lage gode tester innimellom uten å mokke rundt med JSON.
+
+****** LAGRING
+
+Det første vi skal gjøre er å sette opp en elasticsearch instans. Har lasta ned siste versjon her. Har ikke konfigurert noe på den, men vi kjører den rett opp.
+
+Ok, nå som vi er eksperter på API'et, begynner vi på lagring av data. Les sitat. De fleste har vel vært borte i dette i en eller annen grad
+Det man egentlig ønsker er at plattformen skal skjønne ditt domene, og ikke omvendt. Jeg vil forholde med til mine data, også skal verktøyene mine
+gjøre de tilgjengelige uten at jeg trenger å forholde meg til ting som ligger utenfor domenet.
+
+Her har vi meg. Navn, yrke etc. For å gjøre det litt hipster og sosialt legger jeg til "likes", som kan være ha verdier.
+
+Da skal vi se om vi klarer å indeksere det. Har lasta ned nyeste elasticsearch her, så starter vi serveren med parameter -f for å kjøre i forgrunnen.
+Ok, også kjører vi curl i vår beste venn bash-shell.
+Så kjører vi get-url'en i browseren
+
+Vel og bra. Det neste naturlige steg er da å indeksere sin nærmeste leder, og for Morten vil vi ha med et ekstra felt, nemlig antall undersåtter.
+Vi dytter det inn i samme index-type og satser på at det går bra
+
+
+Så langt har vi bare fortalt Elasticsearch hva vi vil lagre, og ikke noe om hvordan. Det går greit på en del ting, men så fort man vil gjøre
+noe litt mer komplekst må man definere mappinger.
+Hvis vi ser på det vi har lagret så langt gjennom api-funksjonen "_mapping" så er det enkle datatyper.
+
+Mapping er et stort felt, men typiske ting er å lage tokens, dvs dele opp, strenger for å kunne søke på enkelt ord - og her igjen har man filter
+ og regler man kan legge til, f.eks å lage fonetisk fraser
+Da er det vel ikke skjema-fritt allikevel? Nei, men det bedres ved å kunne definere dette som regler, ala "alle string-felter som starter
+med data_ skal analyseres og lagres som tokens" osv
+
+Hvis jeg nå skal indexere Pavel, en av våre utviklere i Minsk som skal ha neste presentasjon, vil jeg gjerne ha med lokasjon. I Elasticsearch
+har man en innebygget type "geo_point" som man kan gjøre kule ting med.
+Jeg definerer her at for indeksen "enonic" og index-typen "employee" skal data med navn lokasjon lagres som et geo-punkt. Hvis elasticsearch
+ikke klarer å tolke det som et data av denne typen vil det lagring feile. Altså har vi pluteslig typa data i det skjemaløse lageret.
+
+Hvis vi nå lagret Pavel, og sjekker mappinga ser vi at feltet "location" er definert som et geo-point.
+
+
+***** SØK
+
+Ok, så er det søk.
+
+Api-funksjonen vi skal bruke er _search. Og her er en enkel "term" query, som spør etter verdien i et felt. Enkelt og greit spør etter dokumenter
+som har verdien "runar" i feltet "name". (Grunnen til at man kan søke på runar er at default analysering av dette feltet lager tokens eller fraser, dvs
+lagrer "runar" for seg, og "myklebust" for seg, og begge peker til dokumentet med id rmy@enonic.com som vi lagret i stad.
+
+Vi kjører den, og får treff på meg. Vi kan også søke på felter med flere verdier, som likes. Alle liker kryssfiner, 3 treff.
+
+En litt mer avansert query, med bruk av query_string. Denne query-typen parser søkestrengen og lager det som trengs av queries under panseret.
+Typisk AND, OR etc. Her har jeg også satt en boost-verdi for treff i feltet "name", dvs at dokumenter med treff i disse feltene scorer høyere.
+
+Så litt om filtere. Filtere fungere slik at man først utfører querien, og deretter filtrer bort de treffene som ikke er innenfor filteret. Eller omvendt, det kommer
+an på om man bruker en versjon bastert på lucene 4 eller lucene 3, men det spiller liten rolle.
+
+Her er et ganske festlig filter som filtrer på avstand til en lokasjon, i dette tilfellet 200km fra Minsk. Hvis jeg nå indekserer flere enonic-ansatte, med Oslo som lokasjon
+..
+og utfører querien, så skal vi kun få treff på Pavel.
+
+
+***** Fasetter
+
+Vi hopper raskt videre til fasetter, selv om vi kunne holdt på et par timer med søk og lagring.
+Fasetter er aggregering av data utifra treffene til en query. Litt ala relasjonsdatabasenes aggregat-funksjoner som count, average osv.
+Dette brukes typisk til fine grafer og statistikk, samt til fasett-navigering ala finn.no filterene som de fleste sikker har vært borte i.
+
+Først et term-fasett. Her regnes antallet av hver verdi i et gitt felt. Dette er en enkel variant, men det er lett å legge til mer avansert funksjonalitet
+som å kun regne treff som matcher en reg-exp eller lignende.
+
+En annen variant er "date_histogram" som vist her. Denne aggregerer antall dokumenter for et felt av type dato, inndelt i intervaller. Intervallene her støtter
+alt fra sekunder til år, og også med brøker som halv-annen time.
+
+Igjen et eksempel med lokasjon som jeg synes er fint. Denne aggregerer antall treff innenfor radiuser rundt en annen lokasjon.
+
+
+Ok, skal vise en liten demo til, nemlig av en prosjekt som vi hadde på enonic LABS i fjor engang. Det var to grupper som skulle fremstille
+data fra timeførings-systemet vårt, og som utgangspunkt fikk de hver sin elasticsearch-index lasta med timeføringer. Min gruppe valge å
+fokusere på å lage "mindeless worker database" og å bruke robohash til å lage gøyale roboter, mens den andre gruppa lagde noe bra, og det er
+den jeg skal vise frem tror jeg.
+
+***** Enonic CMS og Elasticsearch
+
+
+Da er vi over på forholdet mellom Enonic CMS og Elasticsearch. I 4.5 hadde vi litt forenklet denne arkitekturen ift datalagring.
+Datakilder og admin kjører
+
+
+
+
